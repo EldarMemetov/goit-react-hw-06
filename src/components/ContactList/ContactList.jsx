@@ -1,5 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { selectContacts, deleteContact } from '../../redux/contactsSlice';
+import { useSelector } from 'react-redux';
+import { selectContacts } from '../../redux/contactsSlice';
 import { selectNameFilter } from '../../redux/filtersSlice';
 import Contact from '../Contact/Contact';
 import contactList from './ContactList.module.css';
@@ -7,21 +7,19 @@ import contactList from './ContactList.module.css';
 const ContactList = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectNameFilter);
-  const dispatch = useDispatch();
 
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
-
 
   return (
     <ul className={contactList.listUl}>
       {filteredContacts.map(contact => (
         <Contact
           key={contact.id}
+          id={contact.id}
           name={contact.name}
           number={contact.number}
-          onDelete={() => dispatch(deleteContact(contact.id))}
         />
       ))}
     </ul>

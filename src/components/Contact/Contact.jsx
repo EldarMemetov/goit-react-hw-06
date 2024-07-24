@@ -1,8 +1,15 @@
 import peopleContact from './contact.module.css';
 import { HiUser } from 'react-icons/hi';
 import { FaPhoneAlt } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice';
 
-const Contact = ({ name, number, onDelete }) => {
+const Contact = ({ name, number, id }) => {
+
+const dispatch = useDispatch()
+
+const handleDelete = () => dispatch(deleteContact(id))
+  
   return (
     <li className={peopleContact.listInfo}>
       <p className={peopleContact.containerSvg}>
@@ -13,7 +20,7 @@ const Contact = ({ name, number, onDelete }) => {
         <FaPhoneAlt size={14} />
         {number}
       </p>
-      <button onClick={onDelete} className={peopleContact.buttonDelete}>
+      <button onClick={handleDelete} className={peopleContact.buttonDelete}>
         Delete
       </button>
     </li>
